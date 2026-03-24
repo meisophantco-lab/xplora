@@ -1,61 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meisophant Search</title>
 
+<!-- Google Programmable Search -->
 <script async src="https://cse.google.com/cse.js?cx=e50129a56b7cb4a17"></script>
 
 <style>
 
-/* Center page */
-
-body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-    text-align: center;
-    margin-top: 100px;
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Title */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #1a102b, #0a0614);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-h1 {
-    font-size: 40px;
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 700px;
+}
+
+.logo {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.tagline {
+    font-size: 16px;
+    color: #94a3b8;
     margin-bottom: 30px;
 }
 
-/* Search box */
-
+/* Search box styling */
 .gsc-control-cse {
     background: transparent !important;
     border: none !important;
 }
 
-/* Input field */
-
 input.gsc-input {
-    padding: 12px;
-    border-radius: 10px;
-    border: 2px solid #3b82f6;
-    font-size: 16px;
+    padding: 14px !important;
+    border-radius: 14px !important;
+    border: 2px solid mediumpurple !important;
+    font-size: 16px !important;
 }
 
-/* Search button */
-
 button.gsc-search-button {
-    background: #3b82f6 !important;
-    border-radius: 10px !important;
+    background: mediumpurple !important;
+    border-radius: 12px !important;
+    padding: 12px 18px !important;
+}
+
+/* Footer */
+.footer {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #64748b;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>Meisophant Search</h1>
+<div class="container">
+
+<div class="logo">Meisophant</div>
+<div class="tagline">Search the web smarter</div>
 
 <div class="gcse-search"></div>
+
+<div class="footer">
+    © 2026 Meisophant
+</div>
+
+</div>
 
 </body>
 </html>
