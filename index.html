@@ -3,13 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meisophant Search</title>
-
-<!-- Google Programmable Search -->
-<script async src="https://cse.google.com/cse.js?cx=e50129a56b7cb4a17"></script>
+<title>Meisophant AI Search</title>
 
 <style>
-
 /* Reset */
 * {
     margin: 0;
@@ -22,73 +18,177 @@ body {
     background: linear-gradient(135deg, #1a102b, #0a0614);
     color: white;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: background 0.5s ease;
+}
+body.light-mode {
+    background: linear-gradient(135deg, #dcd6f7, #c1bfff);
+    color: #1a102b;
 }
 
 .container {
     text-align: center;
     width: 90%;
-    max-width: 700px;
+    max-width: 800px;
+    margin: 120px auto 0;
 }
 
+/* Logo */
 .logo {
     font-size: 48px;
     font-weight: bold;
     margin-bottom: 10px;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px mediumpurple;
 }
 
 .tagline {
     font-size: 16px;
-    color: #94a3b8;
+    color: #b9a8e3;
     margin-bottom: 30px;
 }
 
-/* Search box styling */
+/* Search box */
 .gsc-control-cse {
     background: transparent !important;
     border: none !important;
 }
-
 input.gsc-input {
     padding: 14px !important;
     border-radius: 14px !important;
     border: 2px solid mediumpurple !important;
     font-size: 16px !important;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
 }
-
+input.gsc-input:focus {
+    box-shadow: 0 0 25px mediumpurple;
+    border: 2px solid mediumpurple;
+}
 button.gsc-search-button {
     background: mediumpurple !important;
     border-radius: 12px !important;
     padding: 12px 18px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+button.gsc-search-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px mediumpurple;
+    cursor: pointer;
+}
+
+/* AI-style animated search results */
+.gsc-results .gsc-webResult {
+    background: rgba(25, 10, 45, 0.75);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    padding: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.3s ease;
+}
+.gsc-results .gsc-webResult.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.gsc-results .gsc-webResult:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px mediumpurple;
+}
+.gsc-results .gs-title a {
+    color: mediumpurple !important;
+    text-decoration: none;
+}
+.gsc-results .gs-title a:hover {
+    text-decoration: underline;
+}
+.gsc-results .gsc-webResult::before {
+    content: '🤖';
+    margin-right: 10px;
+    display: inline-block;
 }
 
 /* Footer */
 .footer {
     margin-top: 40px;
     font-size: 14px;
-    color: #64748b;
+    color: #9a86c0;
 }
 
+/* Theme Toggle */
+.toggle-theme {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: mediumpurple;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+.toggle-theme:hover {
+    background: #7a5ca0;
+}
 </style>
-</head>
 
+</head>
 <body>
 
+<button class="toggle-theme">Toggle Theme</button>
+
 <div class="container">
+    <!-- Logo with icon -->
+    <div class="logo">
+        <img src="https://via.placeholder.com/60x60.png?text=M" alt="Meisophant Logo">
+        Meisophant
+    </div>
+    <div class="tagline">Search the web smarter</div>
 
-<div class="logo">Meisophant</div>
-<div class="tagline">Search the web smarter</div>
+    <!-- Separate Search Box and Results -->
+    <div class="gcse-searchbox"></div>
+    <div class="gcse-searchresults"></div>
 
-<div class="gcse-search"></div>
-
-<div class="footer">
-    © 2026 Meisophant
+    <div class="footer">
+        © 2026 Meisophant
+    </div>
 </div>
 
-</div>
+<!-- Google CSE Script -->
+<script async src="https://cse.google.com/cse.js?cx=e50129a56b7cb4a17"></script>
+
+<script>
+// Dark/Light Theme Toggle
+const toggleButton = document.querySelector('.toggle-theme');
+toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+});
+
+// Animate AI search results when they appear
+function animateResults() {
+    const results = document.querySelectorAll('.gsc-results .gsc-webResult');
+    results.forEach((res, i) => {
+        setTimeout(() => {
+            res.classList.add('show');
+        }, i * 100);
+    });
+}
+
+const observer = new MutationObserver(animateResults);
+const resultsContainer = document.querySelector('.gsc-results');
+if (resultsContainer) {
+    observer.observe(resultsContainer, { childList: true, subtree: true });
+}
+</script>
 
 </body>
 </html>
