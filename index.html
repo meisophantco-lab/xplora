@@ -1,194 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meisophant AI Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meisophant Search</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f4f0ff;
+            color: #333;
+        }
 
-<style>
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        header {
+            background-color: mediumpurple;
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #1a102b, #0a0614);
-    color: white;
-    min-height: 100vh;
-    transition: background 0.5s ease;
-}
-body.light-mode {
-    background: linear-gradient(135deg, #dcd6f7, #c1bfff);
-    color: #1a102b;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
 
-.container {
-    text-align: center;
-    width: 90%;
-    max-width: 800px;
-    margin: 120px auto 0;
-}
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+        }
 
-/* Logo */
-.logo {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.logo img {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px mediumpurple;
-}
+        /* Search Box */
+        #meisophant-search input.gsc-input {
+            border-radius: 12px;
+            padding: 14px;
+            width: 350px;
+            border: 2px solid mediumpurple;
+            font-size: 16px;
+        }
 
-.tagline {
-    font-size: 16px;
-    color: #b9a8e3;
-    margin-bottom: 30px;
-}
+        #meisophant-search input.gsc-search-button {
+            background-color: mediumpurple;
+            color: white;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 8px;
+        }
 
-/* Search box */
-.gsc-control-cse {
-    background: transparent !important;
-    border: none !important;
-}
-input.gsc-input {
-    padding: 14px !important;
-    border-radius: 14px !important;
-    border: 2px solid mediumpurple !important;
-    font-size: 16px !important;
-    transition: box-shadow 0.3s ease, border 0.3s ease;
-}
-input.gsc-input:focus {
-    box-shadow: 0 0 25px mediumpurple;
-    border: 2px solid mediumpurple;
-}
-button.gsc-search-button {
-    background: mediumpurple !important;
-    border-radius: 12px !important;
-    padding: 12px 18px !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-button.gsc-search-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px mediumpurple;
-    cursor: pointer;
-}
+        #meisophant-search input.gsc-search-button:hover {
+            background-color: rebeccapurple;
+        }
 
-/* AI-style animated search results */
-.gsc-results .gsc-webResult {
-    background: rgba(25, 10, 45, 0.75);
-    border-radius: 12px;
-    margin-bottom: 15px;
-    padding: 15px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.3s ease;
-}
-.gsc-results .gsc-webResult.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-.gsc-results .gsc-webResult:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px mediumpurple;
-}
-.gsc-results .gs-title a {
-    color: mediumpurple !important;
-    text-decoration: none;
-}
-.gsc-results .gs-title a:hover {
-    text-decoration: underline;
-}
-.gsc-results .gsc-webResult::before {
-    content: '🤖';
-    margin-right: 10px;
-    display: inline-block;
-}
+        /* Results Cards */
+        #meisophant-results .gsc-webResult {
+            background-color: #fff;
+            border: 2px solid mediumpurple;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
 
-/* Footer */
-.footer {
-    margin-top: 40px;
-    font-size: 14px;
-    color: #9a86c0;
-}
+        #meisophant-results .gsc-webResult:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+        }
 
-/* Theme Toggle */
-.toggle-theme {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: mediumpurple;
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
-}
-.toggle-theme:hover {
-    background: #7a5ca0;
-}
-</style>
+        #meisophant-results .gs-title a {
+            color: mediumpurple;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
 
+        #meisophant-results .gs-title a:hover {
+            text-decoration: underline;
+        }
+
+        #meisophant-results .gs-snippet {
+            color: #4b0082;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            #meisophant-search input.gsc-input {
+                width: 100%;
+            }
+            #meisophant-search input.gsc-search-button {
+                width: 100%;
+                margin-top: 8px;
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Meisophant Search</h1>
+    </header>
 
-<button class="toggle-theme">Toggle Theme</button>
+    <main>
+        <!-- Search Box -->
+        <div class="gcse-searchbox-only" id="meisophant-search"></div>
 
-<div class="container">
-    <!-- Logo with icon -->
-    <div class="logo">
-        <img src="https://via.placeholder.com/60x60.png?text=M" alt="Meisophant Logo">
-        Meisophant
-    </div>
-    <div class="tagline">Search the web smarter</div>
+        <!-- Search Results -->
+        <div class="gcse-searchresults-only" id="meisophant-results"></div>
+    </main>
 
-    <!-- Separate Search Box and Results -->
-    <div class="gcse-searchbox"></div>
-    <div class="gcse-searchresults"></div>
-
-    <div class="footer">
-        © 2026 Meisophant
-    </div>
-</div>
-
-<!-- Google CSE Script -->
-<script async src="https://cse.google.com/cse.js?cx=e50129a56b7cb4a17"></script>
-
-<script>
-// Dark/Light Theme Toggle
-const toggleButton = document.querySelector('.toggle-theme');
-toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-});
-
-// Animate AI search results when they appear
-function animateResults() {
-    const results = document.querySelectorAll('.gsc-results .gsc-webResult');
-    results.forEach((res, i) => {
-        setTimeout(() => {
-            res.classList.add('show');
-        }, i * 100);
-    });
-}
-
-const observer = new MutationObserver(animateResults);
-const resultsContainer = document.querySelector('.gsc-results');
-if (resultsContainer) {
-    observer.observe(resultsContainer, { childList: true, subtree: true });
-}
-</script>
-
+    <!-- Google Programmable Search Engine Script -->
+    <script async src="https://cse.google.com/cse.js?cx=d4f0479b5876e4b0c"></script>
 </body>
 </html>
